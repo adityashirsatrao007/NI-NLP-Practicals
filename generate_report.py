@@ -93,11 +93,13 @@ class Report(FPDF):
     def header(self):
         self.set_font("Helvetica", "I", 8)
         self.set_text_color(120, 120, 120)
-        self.cell(0, 5, "NLP Practicals 2026-27  |  Aditya Shirsatrao", align="C")
+        w = self.w - 2 * self.l_margin
+        self.cell(w, 5, "NLP Practicals 2026-27  |  Aditya Shirsatrao", align="C")
         self.ln(3)
-        self.set_draw_color(200, 200, 200)
-        self.line(10, self.get_y(), 200, self.get_y())
-        self.ln(3)
+        self.set_draw_color(180, 180, 180)
+        self.set_line_width(0.2)
+        self.line(self.l_margin, self.get_y(), self.w - self.r_margin, self.get_y())
+        self.ln(4)
 
     def footer(self):
         self.set_y(-10)
