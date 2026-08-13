@@ -125,4 +125,7 @@ for sent in test_sentences:
     pred_tags = [idx2tag[np.argmax(p)] for p in pred[0][:len(sent)]]
     print(f"\n  Words: {sent}")
     print(f"  Predicted POS: {pred_tags}")
-    print(f"  True POS:      {[training_data[0][1][i] if i < len(training_data[0][1]) else '?' for i in range(len(sent))]}")
+    true_tags = [training_data[0][1][i]
+                 if i < len(training_data[0][1]) else '?'
+                 for i in range(len(sent))]
+    print(f"  True POS:      {true_tags}")

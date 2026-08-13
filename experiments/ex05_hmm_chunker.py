@@ -1,9 +1,11 @@
 """
 Expt 5: Implement HMM for POS tagging. Build a Chunker.
 """
+import random
+
 import nltk
 from nltk import RegexpParser
-import random
+from nltk.corpus import brown
 
 nltk.download("brown", quiet=True)
 nltk.download("nps_chat", quiet=True)
@@ -16,9 +18,6 @@ print("=" * 60)
 print("EXPERIMENT 5: HMM POS Tagger & Chunker")
 print("=" * 60)
 
-# ── HMM-style POS Tagger using Bigram approach ──
-from nltk.corpus import brown
-
 brown_tagged = brown.tagged_sents(categories="news", tagset="universal")
 
 # Split train/test
@@ -26,7 +25,7 @@ split = int(len(brown_tagged) * 0.8)
 train_sents = brown_tagged[:split]
 test_sents = brown_tagged[split:]
 
-# HMM transition probabilities (bigram tag model)
+
 class HMMTagger:
     def __init__(self):
         self.tag_freq = {}
@@ -82,7 +81,9 @@ class HMMTagger:
                 max_prob = -1
                 best_prev = tags[0]
                 for prev_tag in tags:
-                    prob = viterbi[t-1][prev_tag] * self._transition_prob(prev_tag, tag) * self._emission_prob(tag, words[t])
+                    prob = (viterbi[t-1][prev_tag]
+                            * self._transition_prob(prev_tag, tag)
+                            * self._emission_prob(tag, words[t]))
                     if prob > max_prob:
                         max_prob = prob
                         best_prev = prev_tag
@@ -108,6 +109,7 @@ class HMMTagger:
             correct += sum(1 for g, p in zip(gold_tags, pred_tags) if g == p)
             total += len(gold_tags)
         return correct / total
+
 
 print("\n--- Training HMM POS Tagger (Brown corpus, news) ---")
 hmm = HMMTagger()

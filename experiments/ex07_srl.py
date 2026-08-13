@@ -13,8 +13,6 @@ print("=" * 60)
 print("EXPERIMENT 7: Semantic Role Labelling (SRL)")
 print("=" * 60)
 
-# Simplified SRL using pattern-based approach
-# In production, useAllenNLP or other SRL models
 
 def extract_srl(sentence):
     """Extract basic semantic roles using pattern matching and dependency heuristics."""

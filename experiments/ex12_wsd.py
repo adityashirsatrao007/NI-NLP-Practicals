@@ -3,6 +3,7 @@ Expt 12: Word Sense Disambiguation by LSTM/GRU.
 """
 import numpy as np
 import tensorflow as tf
+from sklearn.model_selection import train_test_split
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import (
     Input, Embedding, LSTM, GRU, Dense,
@@ -93,9 +94,10 @@ y = to_categorical(y, num_classes=2)
 print(f"Dataset: {len(X)} examples, {VOCAB_SIZE} vocabulary")
 print(f"Senses: 2 (0=first meaning, 1=second meaning)")
 
-# Split
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # ── Model 1: LSTM ──
 print("\n=== Model 1: Bidirectional LSTM ===")
