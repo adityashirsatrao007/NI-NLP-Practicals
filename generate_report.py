@@ -82,8 +82,9 @@ def read_code(filepath):
 
 
 def get_output(experiment_file):
-    base = experiment_file.replace(".py", "")
-    output_file = os.path.join(PROJECT, "outputs", f"{base}_output.txt")
+    # ex01_tokenization_freq.py -> ex01_output.txt
+    num = experiment_file.split("_")[0]  # "ex01"
+    output_file = os.path.join(PROJECT, "outputs", f"{num}_output.txt")
     if os.path.exists(output_file):
         with open(output_file, "r") as f:
             return clean_output(f.read())
